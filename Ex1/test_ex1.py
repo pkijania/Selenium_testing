@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 class LoginLocators:
     user_name = (By.ID, "user-name")
@@ -57,6 +58,16 @@ class PurchaseValidator:
 class Logout:
     def __init__(self, driver):
         self.driver = driver
+
+    def logout_exists(self):
+        self.driver.find_element(*LogoutLocators.menu).click()
+        self.driver.implicitly_wait(3)
+        try:
+            button = self.driver.find_element(*LogoutLocators.logout).is_displayed()
+            if button is True:
+                return True
+        except NoSuchElementException:
+            return False
 
     def logout(self):      
         self.driver.find_element(*LogoutLocators.menu).click()

@@ -1,15 +1,21 @@
 from behave import *
 from selenium.webdriver.common.by import By
+from test_ex1 import Logout
 
-@given("I am unauthenticated user")
+@given("I am an unauthenticated user")
 def step_impl(context):
     pass
 
-@when("I login with {standard_user:s} username and {secret_sauce:s} password")
+@when('I login with "{user}" username and "{password}" password')
 def step_impl(context, user, password):
     context.driver.find_element(By.ID, "user-name").send_keys(user)
     context.driver.find_element(By.ID, "password").send_keys(password)
     context.driver.find_element(By.ID, "login-button").click()
+
+@then('I login successfully')
+def step_impl(context):
+    logout = Logout(context.driver)
+    assert logout.logout_exists()
 """
 @then("I am succesfully logged in")
 def step_impl(context):
