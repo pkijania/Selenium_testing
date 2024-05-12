@@ -11,6 +11,7 @@ class ProductsBasketLocators:
     add_to_cart_bike_light = (By.ID, "add-to-cart-sauce-labs-bike-light")
     button = (By.XPATH, "//span[text()='2']")
     checkout = (By.NAME, "checkout")
+    information = (By.XPATH, "//span[text()='Checkout: Your Information']")
 
 class PurchaseValidatorLocators:
     first_name = (By.NAME, "firstName")
@@ -19,6 +20,7 @@ class PurchaseValidatorLocators:
     continue_button = (By.NAME, "continue")
     finish = (By.NAME, "finish")
     back_to_products = (By.NAME, "back-to-products")
+    main_menu = (By.XPATH, "//span[text()='Products']")
 
 class LogoutLocators:
     menu = (By.ID, "react-burger-menu-btn")
@@ -32,6 +34,14 @@ class Login:
         self.driver.find_element(*LoginLocators.user_name).send_keys(standard_user)
         self.driver.find_element(*LoginLocators.password).send_keys(secret_sauce)
         self.driver.find_element(*LoginLocators.login_button).click()
+        
+    def login_exists(self):
+        try:
+            button = self.driver.find_element(*LoginLocators.login_button).is_displayed()
+            if button is True:
+                return True
+        except NoSuchElementException:
+            return False
 
 class ProductsBasket:
     def __init__(self, driver):
@@ -42,6 +52,14 @@ class ProductsBasket:
         self.driver.find_element(*ProductsBasketLocators.add_to_cart_bike_light).click()
         self.driver.find_element(*ProductsBasketLocators.button).click()
         self.driver.find_element(*ProductsBasketLocators.checkout).click()
+        
+    def info_exists(self):
+        try:
+            info = self.driver.find_element(*ProductsBasketLocators.information).is_displayed()
+            if info is True:
+                return True
+        except NoSuchElementException:
+            return False
         
 class PurchaseValidator:
     def __init__(self, driver):
@@ -54,6 +72,14 @@ class PurchaseValidator:
         self.driver.find_element(*PurchaseValidatorLocators.continue_button).click()
         self.driver.find_element(*PurchaseValidatorLocators.finish).click()
         self.driver.find_element(*PurchaseValidatorLocators.back_to_products).click()
+    
+    def menu_exists(self):
+        try:
+            menu = self.driver.find_element(*PurchaseValidatorLocators.main_menu).is_displayed()
+            if menu is True:
+                return True
+        except NoSuchElementException:
+            return False
 
 class Logout:
     def __init__(self, driver):

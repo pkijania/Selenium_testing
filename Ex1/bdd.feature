@@ -5,22 +5,18 @@ Scenario: Logging in
     Given I am an unauthenticated user
     When I type "standard_user" username and "secret_sauce" password to the input fields and login
     Then I login successfully
-"""
+
 Scenario: Adding products to the basket
     Given I am an authenticated user
     When I add to cart "Sauce Labs Backpack" and "Sauce Labs Bike Light" items
-        And I navigate to checkout
-    Then The items are added to the basket
+    Then I land on checkout page
 
 Scenario: Validating the purchase
-    Given I am an authenticated user with some items in basket
-        And I am on the checkout page
+    Given I am on checkout page
     When I provide my info: "John", "Smith", "54-254"
-        And finish checkout
     Then Checkout is completed
 
 Scenario: Logging out
-    Given I am authenticated user
+    Given I am on main page
     When I logout
     Then I land on the logging page
-"""
