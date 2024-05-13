@@ -25,6 +25,7 @@ class PurchaseValidatorLocators:
 class LogoutLocators:
     menu = (By.ID, "react-burger-menu-btn")
     logout = (By.LINK_TEXT, "Logout")
+    exit_button = (By.ID, "react-burger-cross-btn")
 
 class Login:
     def __init__(self, driver):
@@ -90,6 +91,7 @@ class Logout:
         self.driver.implicitly_wait(3)
         try:
             button = self.driver.find_element(*LogoutLocators.logout).is_displayed()
+            self.driver.find_element(*LogoutLocators.exit_button).click()
             if button is True:
                 return True
         except NoSuchElementException:

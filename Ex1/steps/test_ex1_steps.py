@@ -1,6 +1,6 @@
-from behave import *
 from selenium.webdriver.common.by import By
 from test_ex1 import *
+from behave import *
 
 #1
 @given("I am an unauthenticated user")
@@ -22,7 +22,8 @@ def step_impl(context):
 #2
 @given('I am an authenticated user')
 def step_impl(context):
-    pass
+    logout = Logout(context.driver)
+    assert logout.logout_exists()
 
 @when('I add to cart "Sauce Labs Backpack" and "Sauce Labs Bike Light" items')
 def step_impl(context):
@@ -33,12 +34,14 @@ def step_impl(context):
 
 @then('I land on checkout page')
 def step_impl(context):
-    pass
+    information = ProductsBasket(context.driver)
+    assert information.info_exists()
 
 #3
 @given("I am on checkout page")
 def step_impl(context):
-    pass
+    information = ProductsBasket(context.driver)
+    assert information.info_exists()
 
 @when('I provide my info: "{name}", "{surname}", "{pcode}"')
 def step_impl(context, name, surname, pcode):
@@ -51,12 +54,14 @@ def step_impl(context, name, surname, pcode):
 
 @then("Checkout is completed")
 def step_impl(context):
-    pass
+    main_menu = PurchaseValidator(context.driver)
+    assert main_menu.menu_exists()
 
 #4
 @given("I am on main page")
 def step_impl(context):
-    pass
+    main_menu = PurchaseValidator(context.driver)
+    assert main_menu.menu_exists()
 
 @when("I logout")
 def step_impl(context):
@@ -66,4 +71,5 @@ def step_impl(context):
 
 @then("I land on the logging page")
 def step_impl(context):
-    pass
+    login = Login(context.driver)
+    assert login.login_exists()
