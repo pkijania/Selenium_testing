@@ -28,11 +28,14 @@ class LogoutLocators:
     exit_button = (By.ID, "react-burger-cross-btn")
 
 class PositionValidator:
+    @staticmethod
     def check_if_exists(driver, check):
         try:
-            info = driver.find_element(check).is_displayed()
+            info = driver.find_element(*check).is_displayed()
             if info is True:
                 return True
+            else:
+                return False
         except NoSuchElementException:
             return False
 
@@ -46,7 +49,7 @@ class Login:
         self.driver.find_element(*LoginLocators.login_button).click()
     
     def login_exists(self):
-        PositionValidator.check_if_exists(self.driver, *LoginLocators.login_button)
+        return PositionValidator.check_if_exists(self.driver, LoginLocators.login_button)
 
 class ProductsBasket:
     def __init__(self, driver):
@@ -59,7 +62,7 @@ class ProductsBasket:
         self.driver.find_element(*ProductsBasketLocators.checkout).click()
     
     def info_exists(self):
-        PositionValidator.check_if_exists(self.driver, *ProductsBasketLocators.information)
+        return PositionValidator.check_if_exists(self.driver, ProductsBasketLocators.information)
         
 class PurchaseValidator:
     def __init__(self, driver):
@@ -74,7 +77,7 @@ class PurchaseValidator:
         self.driver.find_element(*PurchaseValidatorLocators.back_to_products).click()
     
     def menu_exists(self):
-        PositionValidator.check_if_exists(self.driver, *PurchaseValidatorLocators.main_menu)
+        return PositionValidator.check_if_exists(self.driver, PurchaseValidatorLocators.main_menu)
 
 class Logout:
     def __init__(self, driver):
@@ -89,4 +92,4 @@ class Logout:
         self.driver.find_element(*LogoutLocators.menu).click()
         self.driver.implicitly_wait(3)
         self.driver.find_element(*LogoutLocators.exit_button).click()
-        PositionValidator.check_if_exists(self.driver, *LogoutLocators.logout)
+        return PositionValidator.check_if_exists(self.driver, LogoutLocators.logout)
