@@ -5,3 +5,17 @@ Additionaly Allure Behave was implemented in order to create reports from tests
 
 ## Task
 Buy "Sauce Labs Backpack" and "Sauce Labs Bike Light" from a "Swag Labs" page
+
+### Commands to run the tests
+- To run the test with allure report 
+```
+behave -f allure_behave.formatter:AllureFormatter -o reports/ features/login.feature
+```
+- To run the test without allure report 
+```
+behave features/login.feature
+```
+- To generate the html allure report from the json files inside reports folder 
+```
+allure serve reports/
+```
