@@ -10,9 +10,8 @@ def step_impl(context):
 
 @when('I type "{user}" username and "{password}" password to the input fields and login')
 def step_impl(context, user, password):
-    context.driver.find_element(By.ID, "user-name").send_keys(user)
-    context.driver.find_element(By.ID, "password").send_keys(password)
-    context.driver.find_element(By.ID, "login-button").click()
+    login = Login(context.driver)
+    login.login(user, password)
 
 @then('I login successfully')
 def step_impl(context):
@@ -27,10 +26,8 @@ def step_impl(context):
 
 @when('I add to cart "Sauce Labs Backpack" and "Sauce Labs Bike Light" items')
 def step_impl(context):
-    context.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
-    context.driver.find_element(By.ID, "add-to-cart-sauce-labs-bike-light").click()
-    context.driver.find_element(By.XPATH, "//span[text()='2']").click()
-    context.driver.find_element(By.NAME, "checkout").click()
+    add_products = ProductsBasket(context.driver)
+    add_products.add_products()
 
 @then('I land on checkout page')
 def step_impl(context):
@@ -45,12 +42,8 @@ def step_impl(context):
 
 @when('I provide my info: "{name}", "{surname}", "{pcode}"')
 def step_impl(context, name, surname, pcode):
-    context.driver.find_element(By.NAME, "firstName").send_keys(name)
-    context.driver.find_element(By.NAME, "lastName").send_keys(surname)
-    context.driver.find_element(By.NAME, "postalCode").send_keys(pcode)
-    context.driver.find_element(By.NAME, "continue").click()
-    context.driver.find_element(By.NAME, "finish").click()
-    context.driver.find_element(By.NAME, "back-to-products").click()
+    validate_purchase = PurchaseValidator(context.driver)
+    validate_purchase.validate_purchase(name, surname, pcode)
 
 @then("Checkout is completed")
 def step_impl(context):
@@ -65,9 +58,8 @@ def step_impl(context):
 
 @when("I logout")
 def step_impl(context):
-    context.driver.find_element(By.ID, "react-burger-menu-btn").click()
-    context.driver.implicitly_wait(3)
-    context.driver.find_element(By.LINK_TEXT, "Logout").click()
+    logout = Logout(context.driver)
+    logout.logout()
 
 @then("I land on the logging page")
 def step_impl(context):

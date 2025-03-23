@@ -83,7 +83,7 @@ class Logout:
     def __init__(self, driver):
         self.driver = driver
 
-    def logout(self):      
+    def logout(self):
         self.driver.find_element(*LogoutLocators.menu).click()
         self.driver.implicitly_wait(3)
         self.driver.find_element(*LogoutLocators.logout).click()
